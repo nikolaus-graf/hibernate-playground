@@ -14,12 +14,12 @@ public abstract class AbstractBaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "id")
-    @GenericGenerator(name = "seq_cocktail_finder", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+    @GenericGenerator(name = "seq_hibernate_playground", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
-                    @Parameter(name = "sequence_name", value = "seq_cocktail_finder"),
+                    @Parameter(name = "sequence_name", value = "seq_hibernate_playground"),
                     @Parameter(name = "increment_size", value = "1")
             })
-    @GeneratedValue(generator = "seq_cocktail_finder", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "seq_hibernate_playground", strategy = GenerationType.SEQUENCE)
     private Long id;
 
     public Long getId() {
