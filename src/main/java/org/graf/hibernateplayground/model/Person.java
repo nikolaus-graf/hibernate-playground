@@ -1,11 +1,10 @@
 package org.graf.hibernateplayground.model;
 
 import javax.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.CascadeType.PERSIST;
 
 @Entity
 @Table(name = "person")
@@ -17,7 +16,7 @@ public class Person extends AbstractBaseEntity {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @ManyToMany(cascade = ALL)
+    @ManyToMany(cascade = PERSIST)
     @JoinTable(name = "person_address",
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "address_id")
