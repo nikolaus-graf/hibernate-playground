@@ -11,6 +11,6 @@ public class HibernatePlaygroundApplication {
 	public static void main(String[] args) {
 		ConfigurableApplicationContext applicationContext = SpringApplication.run(HibernatePlaygroundApplication.class, args);
 		PersonService personService = applicationContext.getBean(PersonService.class);
-		personService.loadAndRemovePerson();
+		personService.removeAddressFromPerson();
 	}
 }

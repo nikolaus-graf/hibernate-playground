@@ -4,8 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "address")
@@ -15,7 +15,7 @@ public class Address extends AbstractBaseEntity {
     public String street;
 
     @ManyToMany(mappedBy = "addressList")
-    public List<Person> personList = new ArrayList<>();
+    public Set<Person> personList = new HashSet<>();
 
     @Deprecated
     public Address() {
@@ -26,7 +26,7 @@ public class Address extends AbstractBaseEntity {
         this.street = street;
     }
 
-    List<Person> getPersonList() {
+    Set<Person> getPersonList() {
         return personList;
     }
 }

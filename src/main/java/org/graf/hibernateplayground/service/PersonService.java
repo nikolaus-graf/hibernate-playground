@@ -35,4 +35,11 @@ public class PersonService {
         Person person = personRepository.findByLastName(PERSON_MAX_LASTNAME);
         personRepository.delete(person);
     }
+
+    @Transactional
+    public void removeAddressFromPerson() {
+        Person person = personRepository.findByLastName(PERSON_MAX_LASTNAME);
+        Address address = person.getAddressList().stream().findFirst().orElse(null);
+        person.removeAddress(address);
+    }
 }

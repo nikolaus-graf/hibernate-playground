@@ -9,8 +9,6 @@ import java.util.Objects;
 
 @MappedSuperclass
 public abstract class AbstractBaseEntity implements Serializable {
-    public static final String SEQ_GENERATOR = "SEQ_GENERATOR";
-    public static final int DEFAULT_ALLOCATION_SIZE = 1;
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "id")
@@ -24,10 +22,6 @@ public abstract class AbstractBaseEntity implements Serializable {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     @Override
