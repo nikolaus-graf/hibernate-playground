@@ -1,46 +1,57 @@
 package org.graf.hibernateplayground.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+import java.io.Serializable;
+import java.util.Objects;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Objects;
-
 @MappedSuperclass
 public abstract class AbstractBaseEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Column(name = "id")
-    @GenericGenerator(name = "seq_hibernate_playground", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-            parameters = {
-                    @Parameter(name = "sequence_name", value = "seq_hibernate_playground"),
-                    @Parameter(name = "increment_size", value = "1")
-            })
-    @GeneratedValue(generator = "seq_hibernate_playground", strategy = GenerationType.SEQUENCE)
-    private Long id;
 
-    public Long getId() {
-        return id;
-    }
+  public static final String SEQ_GENERATOR = "SEQ_GENERATOR";
+  public static final int DEFAULT_ALLOCATION_SIZE = 1;
+  private static final long serialVersionUID = 1L;
 
-    @Override
-    public final boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null) {
-            return false;
-        }
-        if (!(getClass().equals(o.getClass()))) {
-            return false;
-        }
-        AbstractBaseEntity entityBase = (AbstractBaseEntity) o;
-        return id != null && entityBase.id != null && Objects.equals(id, entityBase.id);
-    }
+  @Id
+  @Column(name = "id")
+  @GenericGenerator(name = "seq_hibernate_playground", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+      parameters = {
+          @Parameter(name = "sequence_name", value = "seq_hibernate_playground"),
+          @Parameter(name = "increment_size", value = "1")
+      })
+  @GeneratedValue(generator = "seq_hibernate_playground", strategy = GenerationType.SEQUENCE)
+  private Long id;
 
-    @Override
-    public final int hashCode() {
-        return 31;
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  @Override
+  public final boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
+    if (o == null) {
+      return false;
+    }
+    if (!(getClass().equals(o.getClass()))) {
+      return false;
+    }
+    AbstractBaseEntity entityBase = (AbstractBaseEntity) o;
+    return id != null && entityBase.id != null && Objects.equals(id, entityBase.id);
+  }
+
+  @Override
+  public final int hashCode() {
+    return 31;
+  }
 }

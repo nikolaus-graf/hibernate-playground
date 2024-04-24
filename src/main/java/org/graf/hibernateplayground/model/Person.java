@@ -1,10 +1,20 @@
 package org.graf.hibernateplayground.model;
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.CascadeType.PERSIST;
+import static jakarta.persistence.FetchType.EAGER;
 
-import static java.util.Collections.unmodifiableSet;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Table(name = "person")
@@ -16,12 +26,9 @@ public class Person extends AbstractBaseEntity {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "person_address",
-            joinColumns = @JoinColumn(name = "person_id"),
-            inverseJoinColumns = @JoinColumn(name = "address_id")
-    )
-    private Set<Address> addressList = new HashSet<>();
+  @OneToOne(cascade = ALL)
+  @JoinColumn(name = "address_id")
+  private Address address;
 
     @Deprecated
     public Person() {
@@ -33,18 +40,7 @@ public class Person extends AbstractBaseEntity {
         this.lastName = lastName;
     }
 
-    public void addAddress(String street) {
-        Address address = new Address(street);
-        addressList.add(address);
-        address.getPersonList().add(this);
-    }
-
-    public void removeAddress(Address address) {
-        addressList.remove(address);
-        address.getPersonList().remove(this);
-    }
-
-    public Set<Address> getAddressList() {
-        return unmodifiableSet(addressList);
+  public void setAddress(Address address) {
+    this.address = address;
     }
 }

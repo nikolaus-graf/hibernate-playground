@@ -1,32 +1,23 @@
 package org.graf.hibernateplayground.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import java.util.HashSet;
-import java.util.Set;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "address")
 public class Address extends AbstractBaseEntity {
 
-    @Column(name = "street", nullable = false)
-    public String street;
+  @Column(name = "street", nullable = false)
+  private String street;
 
-    @ManyToMany(mappedBy = "addressList")
-    public Set<Person> personList = new HashSet<>();
+  @Deprecated
+  public Address() {
+    //JPA use only
+  }
 
-    @Deprecated
-    public Address() {
-        //JPA use only
-    }
-
-    public Address(String street) {
-        this.street = street;
-    }
-
-    Set<Person> getPersonList() {
-        return personList;
-    }
+  public Address(String street) {
+    this.street = street;
+  }
 }
